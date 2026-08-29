@@ -409,10 +409,7 @@
       setState('loud');
       lastNoisy = now;
       resetQuietTimer();
-    } else if (smoothed >= talk) {
-      setState('talk');
-      lastNoisy = now;
-      resetQuietTimer();
+    } 
     } else {
       // 稍微延遲回睡，避免畫面快速閃爍
       if (now - lastNoisy > 700) {
