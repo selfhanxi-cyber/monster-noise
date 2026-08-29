@@ -394,6 +394,18 @@
     meterBar.style.width = display + '%';
     levelText.textContent = display + '%';
 
+    if (display >= 70) {
+
+    setState('loud');
+
+    message.textContent = '🚨 太大聲了！全班立刻安靜！';
+
+    submessage.textContent = '音量已經超過 70%';
+      lastNoisy = now;
+
+    resetQuietTimer();
+
+} else if (smoothed >= talk) {
     if (display >= 10) {
       setState('loud');
       lastNoisy = now;
