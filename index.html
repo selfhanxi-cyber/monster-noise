@@ -396,7 +396,7 @@
 
     if (display >= 70) {
 
-    setState('loud');
+    setState('veryloud');
 
     message.textContent = ' 太大聲了！全班立刻安靜！';
 
@@ -405,8 +405,7 @@
 
     resetQuietTimer();
 
-} else if (smoothed >= talk) {
-    if (display >= 10) {
+} else if (display >= 10) {
       setState('loud');
       lastNoisy = now;
       resetQuietTimer();
@@ -457,20 +456,16 @@
       return;
     }
     try {
-      stream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          echoCancellation: false,
-          noiseSuppression: false,
-          autoGainControl: false
-        }
-      });
+     stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
       analyser = audioContext.createAnalyser();
       analyser.fftSize = 2048;
       analyser.smoothingTimeConstant = 0.4;
       source = audioContext.createMediaStreamSource(stream);
       source.connect(analyser);
-
+if (audioContext.state === 'suspended') {
+  await audioContext.resume();
+  }
       running = true;
       quietStart = performance.now();
       lastNoisy = 0;
