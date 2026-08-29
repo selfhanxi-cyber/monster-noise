@@ -394,7 +394,7 @@
     meterBar.style.width = display + '%';
     levelText.textContent = display + '%';
 
-    if (smoothed >= loud) {
+    if (display >= 5) {
       setState('loud');
       lastNoisy = now;
       resetQuietTimer();
